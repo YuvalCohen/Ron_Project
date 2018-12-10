@@ -1,0 +1,22 @@
+The main source is: https://docs.python.org/3/tutorial/ 
+I used it for almost each of the statements that I wrote 
+
+Also useful:
+- https://www.tutorialspoint.com/python/python_basic_operators.htm
+
+Additional sources:
+ - https://stackoverflow.com/questions/4841436/what-exactly-does-do-in-python
+ - https://stackoverflow.com/questions/159720/what-is-the-naming-convention-in-python-for-variable-and-function-names
+ - https://www.pythoncentral.io/how-to-generate-a-random-number-in-python/
+ - https://www.pythonforbeginners.com/basics/getting-user-input-from-the-keyboard
+ - https://anh.cs.luc.edu/python/hands-on/3.1/handsonHtml/io.html
+ - https://www.hackerearth.com/practice/python/getting-started/input-and-output/tutorial/
+ - https://pypi.org/project/getch/
+ - https://stackoverflow.com/questions/983354/how-do-i-make-python-to-wait-for-a-pressed-key
+ I tried the msvcrt.getch from above, but could not bring it to work... hence I used (revert to) the python 'input' method.
+ 
+ - https://www.programiz.com/python-programming/keyword-list
+ - https://introcs.cs.princeton.edu/python/appendix_precedence/
+ - https://www.programiz.com/python-programming/examples/odd-even
+ - http://interactivepython.org/runestone/static/pip2/Functions/Returningavaluefromafunction.html
+ - 
