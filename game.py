@@ -1,5 +1,8 @@
 
 import random
+import getpass
+
+
 
 class GameSettings:
     def __init__(self):
@@ -91,5 +94,8 @@ def main():
     g = Game(['Tom', 'Ron'], s)
     g.run()
 
+pswd = getpass.getpass('Password:')
+print ("printing")
+print (pswd)
 main()
 

@@ -21,6 +21,5 @@ Additional sources:
  - http://interactivepython.org/runestone/static/pip2/Functions/Returningavaluefromafunction.html
  - 
  
- ===
- 
- - https://realpython.com/python-ides-code-editors-guide/
+ - https://stackoverflow.com/questions/9202224/getting-command-line-password-input-in-python
+ - https://www.pythonforbeginners.com/files/reading-and-writing-files-in-python
