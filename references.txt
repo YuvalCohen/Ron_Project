@@ -23,3 +23,7 @@ Additional sources:
  
  - https://stackoverflow.com/questions/9202224/getting-command-line-password-input-in-python
  - https://www.pythonforbeginners.com/files/reading-and-writing-files-in-python
+ - https://www.tutorialspoint.com/python/python_strings.htm
+ - https://www.programiz.com/python-programming/dictionary
+ - https://stackoverflow.com/questions/1047318/easiest-way-to-persist-a-data-structure-to-a-file-in-python 
+ - https://docs.python.org/3/library/pickle.html
