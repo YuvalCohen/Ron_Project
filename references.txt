@@ -29,4 +29,6 @@ Additional sources:
  - https://docs.python.org/3/library/pickle.html
  - https://wiki.python.org/moin/UsingPickle
  - https://pythontips.com/2013/08/02/what-is-pickle-in-python/
+ - https://visualgit.readthedocs.io/en/latest/pages/naming_convention.html
+ 
  
