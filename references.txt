@@ -27,3 +27,6 @@ Additional sources:
  - https://www.programiz.com/python-programming/dictionary
  - https://stackoverflow.com/questions/1047318/easiest-way-to-persist-a-data-structure-to-a-file-in-python 
  - https://docs.python.org/3/library/pickle.html
+ - https://wiki.python.org/moin/UsingPickle
+ - https://pythontips.com/2013/08/02/what-is-pickle-in-python/
+ 
