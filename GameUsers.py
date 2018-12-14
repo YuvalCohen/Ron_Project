@@ -2,6 +2,7 @@
 from pathlib import Path
 import pickle
 import getpass
+import game
 
 def encrypt (s): ## I don't know how to encrypt or decrypt
     return s
@@ -92,9 +93,13 @@ class GameUsers:
 
 def test_GameUsers() :
     gu = GameUsers()
-    u1 = gu.add_user()
-    u2 = gu.add_user()
     u3 = gu.select_user()
     u4 = gu.select_user()
+    print ([u3, u4])
+    if u3 and u4 and u3 != u4:
+        game.Game([u3, u4], game.GameSettings() ).run()
+        
+
 
 test_GameUsers()
+

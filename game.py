@@ -13,11 +13,11 @@ class GameSettings:
         self.num_of_dice = 2 # the number of dice to roll at each turn
         self.double_num_of_dice = 1 # the number of dice to roll when double
         self.draw_num_of_dice = 1 # the number of dice to roll after the main game ended at draw
-         
+
 
 class Game:
     def __init__(self, users, settings):
-        self.users = users 
+        self.users = users
         self.s = settings
         self.scores = []
         for i in range(settings.num_users):
@@ -52,8 +52,8 @@ class Game:
     def bonus(self, roll, player_number):
         if roll[0] == roll[1] : ### Double!! roll again:
             print("*** You rolled double ***: ", roll[0])
-            print(self.users[player_number], "please press Enter to roll an extra dice...")
-            input()
+            # print(self.users[player_number], "please press Enter to roll an extra dice...")
+            input(self.users[player_number] + " please press Enter to roll an extra dice...")
             r = random.randint(1, self.s.cube_size)
             print("You rolled:", r)
             return r
@@ -69,8 +69,8 @@ class Game:
             return bonus
 
     def play(self, player_number, num_of_dice): # i is the number of turn, j is the number of user that plays
-        print(self.users[player_number], "please press Enter to roll the dice...")
-        input()
+        # print(self.users[player_number], "please press Enter to roll the dice...")
+        input(self.users[player_number] + " please press Enter to roll the dice...")
         roll = []
         roll_score = 0
         for i in range (num_of_dice):
@@ -82,20 +82,16 @@ class Game:
             print(self.users[player_number], "your score for this turn is", roll_score, "points")
         else:
             print("You rolled:", roll)
-                
+
         self.scores[player_number] += roll_score
         if self.scores[player_number] < 0:
             self.scores[player_number] = 0
 
 
 
-def main():
+def test_game():
     s = GameSettings()
     g = Game(['Tom', 'Ron'], s)
     g.run()
 
-pswd = getpass.getpass('Password:')
-print ("printing")
-print (pswd)
-main()
-
+# test_game()
