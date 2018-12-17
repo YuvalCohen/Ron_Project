@@ -30,5 +30,5 @@ Additional sources:
  - https://wiki.python.org/moin/UsingPickle
  - https://pythontips.com/2013/08/02/what-is-pickle-in-python/
  - https://visualgit.readthedocs.io/en/latest/pages/naming_convention.html
- 
+ - https://stackoverflow.com/questions/38878741/getpasswarning-can-not-control-echo-on-the-terminal-when-running-from-idle
  
