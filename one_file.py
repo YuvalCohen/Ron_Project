@@ -295,8 +295,8 @@ class GameUsers:
                 return None
             elif username not in self.s :
                 print("Sorry, user name " + username + " does not exists" )
-			elif username in already_selected:
-				print("User " + username + " already selected, please select a different user" )
+            elif username in already_selected:
+                print("User " + username + " already selected, please select a different user" )
             else:
                 break
 
