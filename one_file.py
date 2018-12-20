@@ -27,11 +27,9 @@ def main_game():
         if res == 1: # add user
             game_users.add_user()
         elif res == 2: # run game
-            players = []
-            for i in range(game_settings.num_players):
-                players += [ game_users.select_user(players) ]
-                if players[i] == None :
-                    break            
+            players = game_users.select_players(game_settings.num_players)
+            if players is None:
+                continue
             
             play_again = True
             while play_again: ## play many games with the same players and settings
@@ -145,8 +143,8 @@ class GameSettings:
                 
 
 class Game:
-    def __init__(self, users, settings):
-        self.users = users
+    def __init__(self, players, settings):
+        self.players = players
         self.s = settings
         self.scores = []
         for i in range(settings.num_players):
@@ -156,12 +154,12 @@ class Game:
         for i in range(self.s.num_turns) :
             print("===== Turn #", i+1, "=====")
             for j in range(self.s.num_players):
-                print("*** Player: ", self.users[j], "***")
+                print("*** Player: ", self.players[j], "***")
                 points = self.play(j, self.s.num_of_dice, True)
                 
             print ("The score at the end of turn #", i+1)
             for j in range(self.s.num_players):
-                print(self.users[j], "has", self.scores[j], "points")
+                print(self.players[j], "has", self.scores[j], "points")
 
         if self.s.num_players == 2:
             i = 0
@@ -169,21 +167,21 @@ class Game:
                 i += 1
                 print("Draw!", self.scores[0],  " extra turn #", i, " roll single dice")
                 for j in range(self.s.num_players):
-                    print("*** Player:", self.users[j], "***")
+                    print("*** Player:", self.players[j], "***")
                     self.play(j, self.s.draw_num_of_dice, False)
 
             print ("The scores:")
             winner = 0
             if self.scores[0] < self.scores[1]:
                 winner = 1
-            print("The winner is", self.users[winner], "with", self.scores[winner], "points")
-            print(self.users[1-winner], "receive", self.scores[1-winner], "points")
-            return [ self.users[winner], self.users[1-winner] ]
+            print("The winner is", self.players[winner], "with", self.scores[winner], "points")
+            print(self.players[1-winner], "receive", self.scores[1-winner], "points")
+            return [ self.players[winner], self.players[1-winner] ]
 
 
     def bonus(self, roll, player_number):
         if len(roll) == 2 and roll[0] == roll[1] : ### Double!! roll again:
-            print("~ ", self.users[player_number], "You rolled double", roll[0], "and you have a bonus roll ~")
+            print("~ ", self.players[player_number], "You rolled double", roll[0], "and you have a bonus roll ~")
             return self.play(player_number, self.s.double_num_of_dice, False) ## roll the dice again! (note this is a recusive call!!!)
 
         else: # Bonus
@@ -199,7 +197,7 @@ class Game:
             return bonus
 
     def play(self, player_number, num_of_dice, add_bonus): # i is the number of turn, j is the number of user that plays
-        input(self.users[player_number] + " please press Enter to roll the dice...")
+        input(self.players[player_number] + " please press Enter to roll the dice...")
         roll = []
         roll_score = 0
         for i in range (num_of_dice):
@@ -212,7 +210,7 @@ class Game:
         
         if add_bonus:
             roll_score += self.bonus(roll, player_number)
-            print(self.users[player_number], "your score for this turn is", roll_score, "points")
+            print(self.players[player_number], "your score for this turn is", roll_score, "points")
             
         if self.scores[player_number] < 0:
             self.scores[player_number] = 0
@@ -222,6 +220,22 @@ class Game:
 def test_game():
     s = GameSettings()
     g = Game(['Tom', 'Ron'], s)
+    #g.bonus([3,3], 0)
+    #g.bonus([0,1], 0)
+    #g.bonus([0,2], 0)
+    
+    #g.bonus([3,3], 1)
+    #g.bonus([0,1], 1)
+    #g.bonus([0,2], 1)
+
+    #g.play(0, 1, False)
+    #g.play(0, 2, False)
+    #g.play(0, 2, True)
+
+    #g.play(1, 1, False)
+    #g.play(1, 2, False)
+    #g.play(1, 2, True)
+
     g.run()
 
 # test_game()
@@ -286,28 +300,34 @@ class GameUsers:
         self.store()
         return username
     
-    def select_user(self, already_selected):
-        print ("Selecting a user:")
-        username = None
-        while True :
-            username = input("Please type user name... (or press Enter to exist to the main menue)...")
-            if len(username) < 1 :
-                return None
-            elif username not in self.s :
-                print("Sorry, user name " + username + " does not exists" )
-            elif username in already_selected:
-                print("User " + username + " already selected, please select a different user" )
-            else:
-                break
+    def select_players(self, number_of_players):
+        players = []
+        while len(players) < number_of_players:
+            print ("Selecting a player:")
+            username = None
+            while True :
+                username = input("Please type user name... (or press Enter to exist to the main menue)...")
+                if len(username) < 1 :
+                    return None
+                elif username not in self.s :
+                    print("Sorry, user name " + username + " does not exists" )
+                elif username in players:
+                    print("Player " + username + " already selected, please select a different user" )
+                else:
+                    break
 
-        for i in range(3) : ## 3 attempts to enter matching password
-            password = getpass.getpass("Please type the password for " + username)  ## get the password from the user
-            if password == decrypt( self.s[username]['password'] ) : ## compare the password to the saved password
-                return username
-            print("Sorry, wrong password for user name: " + username  )
-        
-        return None
-        
+            password = None
+            for i in range(3) : ## 3 attempts to enter matching password
+                password = getpass.getpass("Please type the password for " + username)  ## get the password from the user
+                if password == decrypt( self.s[username]['password'] ) : ## compare the password to the saved password
+                    players += [ username ] ### Add a user, password matches!
+                    break ## Next user...
+                print("Sorry, wrong password for user name: " + username  )
+                password = None
+                
+            if password is None:
+                return None
+        return players
     
     def user_win(self, username):
         self.s[username]['win'] += 1  ## increment the number of wins
