@@ -39,7 +39,7 @@ def main_game():
                 
                 if winner_loser != None:  ## if there is a winner and a loser, we store them in game users:
                     game_users.user_win(winner_loser[0]) ## store the winner
-                    game_users.user_lost(winner_loser[1]) ## store the loser
+                    game_users.user_loss(winner_loser[1]) ## store the loser
                 play_again = query_yes_no("Would you like to play again?") ## play again?
             
         elif res == 3: # print the user recors
@@ -174,6 +174,8 @@ class Game:
             winner = 0
             if self.scores[0] < self.scores[1]:
                 winner = 1
+            ## player[winner] has the higher score 
+            ## The loser is player[1-winner]
             print("The winner is", self.players[winner], "with", self.scores[winner], "points")
             print(self.players[1-winner], "receive", self.scores[1-winner], "points")
             return [ self.players[winner], self.players[1-winner] ]
@@ -244,7 +246,7 @@ def test_game():
 ### Game Users ### 
 """The following is Gameusers class
 It handles all the usage of the users in the game
-It stores a map of users and their <passwords, number of wins, number of losts
+It stores a map of users and their <passwords, number of wins, number of losses
 It persists its data in pickle file with name: game_storage.pkl
 requires:
 
@@ -296,7 +298,7 @@ class GameUsers:
                 break
         
             
-        self.s[username] = {'password':encrypt(password), 'win':0,'lost':0}
+        self.s[username] = {'password':encrypt(password), 'win':0,'loss':0}
         self.store()
         return username
     
@@ -332,12 +334,12 @@ class GameUsers:
     def user_win(self, username):
         self.s[username]['win'] += 1  ## increment the number of wins
         self.store() ## Store in pickle file
-    def user_lost(self, username):
-        self.s[username]['lost'] += 1 ## increment the number of losts
+    def user_loss(self, username):
+        self.s[username]['loss'] += 1 ## increment the number of losss
         self.store() ## Store in pickle file
     def user_records(self): ## Print the records (except the passwords!)
         for username in sorted(self.s.keys()): # iterate sorted, nice.
-            print (username, "won", self.s[username]['win'], "games and lost", self.s[username]['lost'], "games")
+            print (username, "won", self.s[username]['win'], "games and lost", self.s[username]['loss'], "games")
         
     def number_of_users(self):
         return len(self.s)
